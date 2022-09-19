@@ -1,4 +1,4 @@
-import numpy as np 
+from numpy import empty
 from sympy import Symbol, pprint, powsimp
 #Функция запрашивает степень полинома и его коэфициенты
 def  Request_coef():
@@ -7,10 +7,10 @@ def  Request_coef():
     s = 0
     
     #Запрос степени полинома
-    print("Input polinom degree.\n(P(x) = Σ Сi*(x**i), i = 0,1,....,n. n - degree of polinom ")
+    pprint("Input polinom degree.\n(P(x) = Σ С_i*(x**i), i = 0,1,....,n. n - degree of polinom ")
     degree_of_polynomial = int(input("==> "))+1
     
-    Coef_of_polinom = np.empty(degree_of_polynomial)
+    Coef_of_polinom = empty(degree_of_polynomial)
     
     #Ввод коэфициентов полинома
     for i in range(degree_of_polynomial):
@@ -54,7 +54,7 @@ def Chek_Bijectiv_Tranzitiv():
     Funk_deduction_mod8 = []
     
     #Начальное значение с которого начинать проверку
-    x0 = 1
+    x0 = 0
     
     #Расчёт значения полинома в данной точке и вычисление вычета по модулю 4
     while x0 not in Funk_deduction_mod4:
@@ -71,6 +71,8 @@ def Chek_Bijectiv_Tranzitiv():
         
     else:
         print("Funktion is not Bijective")
+        print("Ring modulo 4\n", Massiv_mod4)
+        print("Funk deduction modulo 4\n", Funk_deduction_mod4)
     
     
     #Аналогичные операции по модулю 8
@@ -88,6 +90,8 @@ def Chek_Bijectiv_Tranzitiv():
         
     else:
         print("Funktion is not Tranzitive")
+        print("Ring modulo 8\n", Massiv_mod8)
+        print("Funk deduction modulo 8\n", Funk_deduction_mod8)
     
     
     
