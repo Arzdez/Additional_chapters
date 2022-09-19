@@ -110,7 +110,7 @@ def Graph_Plot():
     Rational_number_for_Kstring = [ i / ( 2**digit )  for i in Kdigit_strings]
     
     #Генерируем массив рациональных чисел вида: ( f(l) mod p**k ) / ( p**k )
-    Funk_deduction_module = [ ( Polinomial_Answer( Coef_of_polinom , i ) % ( 2**digit ) ) / ( 2**digit ) for i in Kdigit_strings ]
+    Funk_deduction_module = [ ( ( Polinomial_Answer( Coef_of_polinom , i ) % ( 2**digit )  ) / ( 2**digit ) ) for i in Kdigit_strings ]
 
     #Рисуем граффик
     scatter(Rational_number_for_Kstring,Funk_deduction_module,s=1)
