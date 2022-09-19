@@ -1,5 +1,6 @@
 from numpy import empty
 from sympy import Symbol, pprint, powsimp
+from joblib import Parallel, delayed
 #Функция запрашивает степень полинома и его коэфициенты
 def  Request_coef():
     #Переменные для вывода полинома
@@ -97,6 +98,9 @@ def Chek_Bijectiv_Tranzitiv():
 def funk(x):
     return x + (x**2) or (-131065)
 
+def test(x,dig):
+    (funk(x) % ( 2**dig )  / ( 2**dig ))
+
 def Graph_Plot():
     
 
@@ -113,7 +117,7 @@ def Graph_Plot():
     
     #Генерируем массив рациональных чисел вида: ( f(l) mod p**k ) / ( p**k )
     #Funk_deduction_module = [ ( Polinomial_Answer( Coef_of_polinom, i ) % ( 2**digit ) ) / ( 2**digit ) for i in Kdigit_strings ]
-    Funk_deduction_module = [ (funk(i) % ( 2**digit )  / ( 2**digit )) for i in Kdigit_strings ]
+    Funk_deduction_module = Parallel(n_jobs=16)(delayed(test)(i,digit) for i in Kdigit_strings )
     
     #Рисуем граффик
     scatter(Rational_number_for_Kstring,Funk_deduction_module,s=1)
