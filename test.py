@@ -2,6 +2,8 @@ from numpy import empty
 from sympy import Symbol, pprint, powsimp
 from joblib import Parallel, delayed
 from matplotlib.pyplot import scatter, show
+
+import time
 #Функция запрашивает степень полинома и его коэфициенты
 def  Request_coef():
     #Переменные для вывода полинома
@@ -99,8 +101,12 @@ def Chek_Bijectiv_Tranzitiv():
 def funk(x):
     return x + (x**2) or (-131065)
 
-def test(x,dig):
-    (funk(x) % ( 2**dig )  / ( 2**dig ))
+#Функции для распараллеливания
+def deduction_mod(x,dig):
+    return (funk(x) % ( 2**dig )  / ( 2**dig ))
+
+def Rationul_number(x,dig):
+    return x / ( 2**dig )
 
 def Graph_Plot():
     
@@ -113,13 +119,18 @@ def Graph_Plot():
     #Генерируем все k-разрядные строки 
     Kdigit_strings = [i for i in range( 2**digit )]
     
+    start = time.time()
     #Генерируем массив рациональных чисел вида: l/p**k , l = {0,1,...,(p**k)-1)}
-    Rational_number_for_Kstring = [ i / ( 2**digit )  for i in Kdigit_strings]
+    Rational_number_for_Kstring = Parallel(n_jobs=16)(delayed(Rationul_number)(i,digit) for i in Kdigit_strings )
     
     #Генерируем массив рациональных чисел вида: ( f(l) mod p**k ) / ( p**k )
     #Funk_deduction_module = [ ( Polinomial_Answer( Coef_of_polinom, i ) % ( 2**digit ) ) / ( 2**digit ) for i in Kdigit_strings ]
-    Funk_deduction_module = Parallel(n_jobs=16)(delayed(test)(i,digit) for i in Kdigit_strings )
     
+    Funk_deduction_module = Parallel(n_jobs=16)(delayed(deduction_mod)(i,digit) for i in Kdigit_strings )
+    end = time.time()
+    
+    print("время выполнения: ", end-start)
+
     #Рисуем граффик
     scatter(Rational_number_for_Kstring,Funk_deduction_module,s=1)
     show()  
