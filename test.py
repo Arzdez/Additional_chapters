@@ -42,7 +42,7 @@ def Polinomial_Answer(coeficients,X):
 
 #Проверяет функцию на транзитивность и биективность
 def Chek_Bijectiv_Tranzitiv():
-    d = 1
+
     Coef_of_polinom = Request_coef()
     
     #Массивы хранящие кольцо вычетов по модулю 4 и 8 соответственно
