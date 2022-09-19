@@ -2,25 +2,30 @@ import numpy as np
 from sympy import Symbol, pprint, powsimp
 #Функция запрашивает степень полинома и его коэфициенты
 def  Request_coef():
+    #Переменные для вывода полинома
     x = Symbol('x')
     s = 0
+    
+    #Запрос степени полинома
     print("Input polinom degree.\n(P(x) = Σ Сi*(x**i), i = 0,1,....,n. n - degree of polinom ")
     degree_of_polynomial = int(input("==> "))+1
     
     Coef_of_polinom = np.empty(degree_of_polynomial)
     
+    #Ввод коэфициентов полинома
     for i in range(degree_of_polynomial):
         print(f"input {i} coeficient")
         Coef_of_polinom[i] = int(input("==> "))
         
-        
+        #Заполнение переменной для вывода плученного полинома
         s+= powsimp(Coef_of_polinom[i]*x**i,combine='base',force=True)
     
-      
+    #Вывод полинома
     print("-------------------------")
     print("Your polinom") 
     pprint(s)
     print("-------------------------")
+    
     return Coef_of_polinom
 
 #С коэфициентами предыдущей фнукции вычисляет P(x) с данным x
