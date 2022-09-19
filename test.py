@@ -94,7 +94,30 @@ def Chek_Bijectiv_Tranzitiv():
         print("Funk deduction modulo 8\n", Funk_deduction_mod8)
     
     
+def funk(x):
+    return x + (x**2) or (-131065)
+
+def Graph_Plot():
     
+
+    #Coef_of_polinom = Request_coef()
+    
+    #Запрашиваем число разрядов k
+    digit = int(input("Input digit\n==> "))
+    
+    #Генерируем все k-разрядные строки 
+    Kdigit_strings = [i for i in range( 2**digit )]
+    
+    #Генерируем массив рациональных чисел вида: l/p**k , l = {0,1,...,(p**k)-1)}
+    Rational_number_for_Kstring = [ i / ( 2**digit )  for i in Kdigit_strings]
+    
+    #Генерируем массив рациональных чисел вида: ( f(l) mod p**k ) / ( p**k )
+    #Funk_deduction_module = [ ( Polinomial_Answer( Coef_of_polinom, i ) % ( 2**digit ) ) / ( 2**digit ) for i in Kdigit_strings ]
+    Funk_deduction_module = [ (funk(i) % ( 2**digit )  / ( 2**digit )) for i in Kdigit_strings ]
+    
+    #Рисуем граффик
+    scatter(Rational_number_for_Kstring,Funk_deduction_module,s=1)
+    show()  
     
     
 
