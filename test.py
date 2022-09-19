@@ -1,7 +1,7 @@
 from numpy import empty
 from sympy import Symbol, pprint, powsimp
 from matplotlib.pyplot import scatter, show
-
+import time
 #Функция запрашивает степень полинома и его коэфициенты
 def  Request_coef():
     #Переменные для вывода полинома
@@ -108,12 +108,16 @@ def Graph_Plot():
     #Генерируем все k-разрядные строки 
     Kdigit_strings = [i for i in range( 2**digit )]
     
+    start = time.time()
     #Генерируем массив рациональных чисел вида: l/p**k , l = {0,1,...,(p**k)-1)}
     Rational_number_for_Kstring = [ i / ( 2**digit )  for i in Kdigit_strings]
     
     #Генерируем массив рациональных чисел вида: ( f(l) mod p**k ) / ( p**k )
     Funk_deduction_module = [ ( Polinomial_Answer( Coef_of_polinom, i ) % ( 2**digit ) ) / ( 2**digit ) for i in Kdigit_strings ]
     
+    end = time.time()
+    
+    print("Время вполнения: ", end - start)
     
     #Рисуем граффик
     scatter(Rational_number_for_Kstring,Funk_deduction_module,s=1)
