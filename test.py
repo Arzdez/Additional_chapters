@@ -1,6 +1,7 @@
 from numpy import empty
 from sympy import Symbol, pprint, powsimp
 from joblib import Parallel, delayed
+from matplotlib.pyplot import scatter, show
 #Функция запрашивает степень полинома и его коэфициенты
 def  Request_coef():
     #Переменные для вывода полинома
@@ -127,5 +128,5 @@ def Graph_Plot():
 
 
 if __name__ == '__main__':
-    Chek_Bijectiv_Tranzitiv()
+    Graph_Plot()
 
