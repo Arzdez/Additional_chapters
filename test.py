@@ -114,7 +114,8 @@ def Graph_Plot():
 
     # Генерируем массив рациональных чисел вида: ( f(l) mod p**k ) / ( p**k )
     Funk_deduction_module = [
-        ((Polinomial_Answer(Coef_of_polinom, i) % (2**digit)) / (2**digit)) for i in Kdigit_strings
+        ((Polinomial_Answer(Coef_of_polinom, i) % (2**digit)) / (2**digit))
+        for i in Kdigit_strings
     ]
 
     # Рисуем граффик
@@ -123,8 +124,25 @@ def Graph_Plot():
 
 
 def beta_proj():
-    pass
+    def betta(n):
+        return 2 ** (1 / n)
+
+    # Запрашиваем степень полинома и  коэфициенты
+    Coef_of_polinom = Request_coef()
+
+    # Запрашиваем число разрядов k
+    digit = int(input("Input K\n==> "))
+
+    # Генерируем все k-разрядные строки
+    Kdigit_strings = [i for i in range(1,2**digit)]
+
+    X_pro = [(x * betta(x) / betta(x)) % 1 for x in Kdigit_strings]
+    Y_pro = [(Polinomial_Answer(Coef_of_polinom, x) * betta(x) / betta(x)) % 1
+        for x in Kdigit_strings
+    ]
+    scatter(X_pro, Y_pro, s=1)
+    show()
 
 
 if __name__ == "__main__":
-    pass
+    beta_proj()
